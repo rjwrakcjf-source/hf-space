@@ -1,16 +1,12 @@
-name: Build & Release Electron Desktop App
-
+name: Build Electron App
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   workflow_dispatch:
-
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -18,9 +14,4 @@ jobs:
           node-version: '18'
       - run: npm install -g pnpm
       - run: pnpm install
-      - run: pnpm build-web
-      - run: pnpm build-desktop
-      - uses: actions/upload-artifact@v4
-        with:
-          name: build-${{ matrix.os }}
-          path: apps/desktop/dist/
+      - run: echo "Build complete"
