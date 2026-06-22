@@ -1,0 +1,9 @@
+{
+  "name": "default",
+  "maxMemory": "256m",
+  "maxCpu": 0.5,
+  "networkAccess": false,
+  "fileSystemAccess": "none",
+  "allowedSyscalls": [],
+  "timeout": 30000
+}

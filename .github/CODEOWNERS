@@ -1,0 +1,14 @@
+# Global code owners
+* @rjwrakcjf-source
+
+# Security-sensitive areas
+libs/security/ @rjwrakcjf-source
+security/ @rjwrakcjf-source
+
+# Core infrastructure
+libs/core/ @rjwrakcjf-source
+libs/database/ @rjwrakcjf-source
+
+# Documentation
+*.md @rjwrakcjf-source
+docs/ @rjwrakcjf-source

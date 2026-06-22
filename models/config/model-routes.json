@@ -1,0 +1,8 @@
+{
+  "routes": [
+    { "task": "text-generation", "primary": "gpt2", "fallbacks": ["distilgpt2"] },
+    { "task": "code-generation", "primary": "Salesforce/codegen-350M-mono", "fallbacks": [] },
+    { "task": "embeddings", "primary": "sentence-transformers/all-MiniLM-L6-v2", "fallbacks": [] },
+    { "task": "speech", "primary": "openai/whisper-base", "fallbacks": [] }
+  ]
+}

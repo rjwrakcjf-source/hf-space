@@ -1,0 +1,21 @@
+{
+  "name": "@hf-space/database",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "echo 'No build needed'",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:push": "prisma db push",
+    "lint": "eslint src --ext .js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.15.0",
+    "better-sqlite3": "^9.6.0"
+  },
+  "devDependencies": {
+    "prisma": "^5.15.0",
+    "jest": "^29.7.0"
+  }
+}

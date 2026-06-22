@@ -1,0 +1,106 @@
+// This is your Prisma schema file
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String       @id @default(cuid())
+  email       String       @unique
+  name        String?
+  passwordHash String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  projects    Project[]
+  deployments Deployment[]
+  auditLogs   AuditLog[]
+
+  @@map("users")
+}
+
+model Project {
+  id          String       @id @default(cuid())
+  name        String
+  description String?
+  userId      String
+  user        User         @relation(fields: [userId], references: [id])
+  builds      Build[]
+  deployments Deployment[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@map("projects")
+}
+
+model Build {
+  id        String   @id @default(cuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id])
+  status    String   @default("pending")
+  logs      String?
+  artifacts String?
+  startedAt DateTime?
+  finishedAt DateTime?
+  createdAt DateTime @default(now())
+
+  @@map("builds")
+}
+
+model Deployment {
+  id         String   @id @default(cuid())
+  projectId  String
+  project    Project  @relation(fields: [projectId], references: [id])
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  platform   String
+  url        String?
+  status     String   @default("pending")
+  deployedAt DateTime?
+  createdAt  DateTime @default(now())
+
+  @@map("deployments")
+}
+
+model Extension {
+  id          String   @id @default(cuid())
+  name        String
+  version     String
+  description String?
+  author      String?
+  installed   Boolean  @default(false)
+  enabled     Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("extensions")
+}
+
+model Model {
+  id          String   @id @default(cuid())
+  modelId     String   @unique
+  name        String
+  type        String
+  cached      Boolean  @default(false)
+  size        Int?
+  createdAt   DateTime @default(now())
+
+  @@map("models")
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  action    String
+  resource  String?
+  details   String?
+  ip        String?
+  createdAt DateTime @default(now())
+
+  @@map("audit_logs")
+}

@@ -1,0 +1,16 @@
+# Global owners
+* @rjwrakcjf-source
+
+# App-specific owners
+apps/web/ @rjwrakcjf-source
+apps/desktop/ @rjwrakcjf-source
+apps/server/ @rjwrakcjf-source
+
+# Core libraries
+libs/core/ @rjwrakcjf-source
+libs/security/ @rjwrakcjf-source
+libs/models/ @rjwrakcjf-source
+
+# Documentation
+docs/ @rjwrakcjf-source
+*.md @rjwrakcjf-source

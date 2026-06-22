@@ -1,0 +1,20 @@
+{
+  "name": "@hf-space/core",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "echo 'No build needed'",
+    "lint": "eslint src --ext .js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "fs-extra": "^11.2.0",
+    "archiver": "^7.0.1",
+    "dockerode": "^4.0.2",
+    "axios": "^1.7.2",
+    "@hf-space/common": "workspace:*"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

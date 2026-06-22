@@ -1,0 +1,10 @@
+{
+  "name": "HF Space",
+  "description": "AI-powered desktop application for building and deploying apps",
+  "version": "1.0.0",
+  "author": "HF Space Team",
+  "repository": "https://github.com/rjwrakcjf-source/hf-space",
+  "license": "MIT",
+  "keywords": ["electron", "ai", "huggingface", "app-builder", "deployment"],
+  "homepage": "https://github.com/rjwrakcjf-source/hf-space"
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@hf-space/desktop",
+  "version": "1.0.0",
+  "private": true,
+  "main": "src/main/main.js",
+  "scripts": {
+    "dev": "concurrently \"pnpm dev-web\" \"electron .\"",
+    "dev-web": "vite --config vite.config.js",
+    "build": "pnpm build-web && electron-builder build",
+    "build-web": "vite build",
+    "lint": "eslint src --ext .js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "electron-updater": "^6.1.8",
+    "electron-store": "^8.2.0",
+    "@hf-space/core": "workspace:*",
+    "@hf-space/models": "workspace:*",
+    "@hf-space/security": "workspace:*"
+  },
+  "devDependencies": {
+    "electron": "^30.0.9",
+    "electron-builder": "^24.13.3",
+    "concurrently": "^8.2.2",
+    "vite": "^5.2.11",
+    "@vitejs/plugin-react": "^4.3.0"
+  }
+}
