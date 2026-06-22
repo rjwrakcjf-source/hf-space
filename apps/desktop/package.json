@@ -2,12 +2,16 @@
   "name": "@hf-space/desktop",
   "version": "1.0.0",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rjwrakcjf-source/hf-space.git"
+  },
   "main": "src/main/main.js",
   "scripts": {
     "dev": "concurrently \"pnpm dev-web\" \"electron .\"",
     "dev-web": "vite --config vite.config.js",
-    "build": "pnpm build-web && electron-builder build",
-    "build-web": "vite build",
+    "build": "pnpm build-web && electron-builder build --config electron-builder.config.js --publish never",
+    "build-web": "vite build --config vite.config.js",
     "lint": "eslint src --ext .js",
     "test": "jest"
   },

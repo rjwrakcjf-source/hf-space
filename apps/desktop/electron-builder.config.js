@@ -1,8 +1,7 @@
-const { defineConfig } = require('electron-builder');
-
-module.exports = defineConfig({
+module.exports = {
   appId: 'com.hf-space.desktop',
   productName: 'HF Space',
+  executableName: 'hf-space',
   copyright: `Copyright © ${new Date().getFullYear()}`,
   directories: {
     buildResources: 'assets',
@@ -32,12 +31,14 @@ module.exports = defineConfig({
       { target: 'AppImage', arch: ['x64'] },
       { target: 'deb', arch: ['x64'] },
     ],
+    artifactName: 'hf-space-${version}-${arch}.${ext}',
     icon: 'assets/icons',
     category: 'Development',
+    maintainer: 'HF Space Team',
   },
   publish: {
     provider: 'github',
     owner: 'rjwrakcjf-source',
     repo: 'hf-space',
   },
-});
+};
