@@ -9,11 +9,13 @@ const modelRoutes = require('./routes/models.routes');
 const { errorMiddleware } = require('./middleware/error.middleware');
 const { corsMiddleware } = require('./middleware/cors.middleware');
 const { securityMiddleware } = require('./middleware/security.middleware');
+const { defaultLimiter } = require('./middleware/rate-limit.middleware');
 
 const apiRouter = Router();
 
 apiRouter.use(corsMiddleware);
 apiRouter.use(securityMiddleware);
+apiRouter.use(defaultLimiter);
 
 apiRouter.use('/auth', authRoutes);
 apiRouter.use('/build', buildRoutes);

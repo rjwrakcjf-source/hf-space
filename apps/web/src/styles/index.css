@@ -1,7 +1,21 @@
-*, *::before, *::after {
+/* Accessible CSS reset and base styles */
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+/* Preserve default margins/padding for semantic elements */
+body {
   margin: 0;
   padding: 0;
+}
+
+/* Preserve focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 :root {
@@ -18,10 +32,19 @@ body {
   background-color: var(--color-background);
   color: var(--color-text);
   min-height: 100vh;
+  line-height: 1.5;
 }
 
 .page {
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+}
+
+/* Ensure interactive elements have proper spacing for touch */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
 }

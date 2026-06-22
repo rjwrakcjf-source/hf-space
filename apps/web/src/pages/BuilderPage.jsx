@@ -2,8 +2,8 @@ import React from 'react';
 
 function BuilderPage() {
   return (
-    <div className="page builderpage">
-      <h1>BuilderPage</h1>
+    <div className="page">
+      <h1>App Builder</h1>
     </div>
   );
 }

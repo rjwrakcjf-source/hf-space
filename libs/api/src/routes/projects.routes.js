@@ -1,8 +1,11 @@
 const { Router } = require('express');
 const controller = require('../controllers/projects.controller');
 const { authMiddleware } = require('../middleware/auth.middleware');
+const { defaultLimiter } = require('../middleware/rate-limit.middleware');
 
 const router = Router();
+
+router.use(defaultLimiter);
 
 router.get('/', authMiddleware, controller.list);
 router.get('/:id', authMiddleware, controller.getById);

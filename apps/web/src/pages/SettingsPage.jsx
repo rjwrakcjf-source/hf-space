@@ -2,8 +2,8 @@ import React from 'react';
 
 function SettingsPage() {
   return (
-    <div className="page settingspage">
-      <h1>SettingsPage</h1>
+    <div className="page">
+      <h1>Settings</h1>
     </div>
   );
 }

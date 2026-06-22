@@ -32,7 +32,7 @@ services:
     cap_add:
       - IPC_LOCK
     environment:
-      VAULT_DEV_ROOT_TOKEN_ID: myroot
+      VAULT_DEV_ROOT_TOKEN_ID: ${VAULT_DEV_ROOT_TOKEN_ID:?Please set VAULT_DEV_ROOT_TOKEN_ID in .env}
     ports:
       - "8200:8200"
 
