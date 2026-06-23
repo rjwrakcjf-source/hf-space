@@ -11,6 +11,7 @@
     "clean": "turbo run clean",
     "build-web": "turbo run build --filter=web",
     "build-desktop": "turbo run build --filter=desktop",
+    "build:desktop": "turbo run build --filter=desktop",
     "build-server": "turbo run build --filter=server",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "typecheck": "turbo run typecheck"

@@ -7,16 +7,29 @@ module.exports = {
     buildResources: 'assets',
     output: 'dist',
   },
+  // Bundle main-process source and built renderer; node_modules handled by electron-builder
   files: [
-    'src/**/*',
+    'src/main/**/*',
     'dist/**/*',
-    'node_modules/**/*',
     'package.json',
+  ],
+  // Workspace packages are resolved by pnpm and must be included explicitly
+  extraResources: [],
+  // Use ASAR but exclude native modules that cannot be serialised
+  asar: true,
+  asarUnpack: [
+    'node_modules/**/*.node',
   ],
   win: {
     target: [{ target: 'nsis', arch: ['x64', 'ia32'] }],
     icon: 'assets/icons/icon.ico',
     signingHashAlgorithms: ['sha256'],
+  },
+  nsis: {
+    oneClick: false,
+    allowToChangeInstallationDirectory: true,
+    createDesktopShortcut: true,
+    createStartMenuShortcut: true,
   },
   mac: {
     target: [{ target: 'dmg', arch: ['x64', 'arm64'] }],
@@ -40,5 +53,6 @@ module.exports = {
     provider: 'github',
     owner: 'rjwrakcjf-source',
     repo: 'hf-space',
+    releaseType: 'release',
   },
 };

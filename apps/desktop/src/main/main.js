@@ -2,8 +2,10 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const { setupAutoUpdate } = require('./auto-update');
 const { registerIpcHandlers } = require('./ipc-handlers');
+const { startEmbeddedServer, stopEmbeddedServer } = require('./embedded-server');
 
 let mainWindow;
+let embeddedServerPort = null;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -33,9 +35,17 @@ function createWindow() {
   });
 }
 
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
+  // Start embedded Express server before opening the window
+  try {
+    const { port } = await startEmbeddedServer();
+    embeddedServerPort = port;
+  } catch (err) {
+    console.error('[main] Failed to start embedded server:', err);
+  }
+
+  registerIpcHandlers(embeddedServerPort);
   createWindow();
-  registerIpcHandlers();
   setupAutoUpdate();
 
   app.on('activate', () => {
@@ -45,7 +55,8 @@ app.whenReady().then(() => {
   });
 });
 
-app.on('window-all-closed', () => {
+app.on('window-all-closed', async () => {
+  await stopEmbeddedServer();
   if (process.platform !== 'darwin') {
     app.quit();
   }
