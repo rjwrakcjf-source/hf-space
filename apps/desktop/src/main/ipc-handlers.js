@@ -1,7 +1,15 @@
 const { ipcMain, app } = require('electron');
 
-function registerIpcHandlers() {
+function registerIpcHandlers(embeddedServerPort) {
   ipcMain.handle('app:version', () => app.getVersion());
+
+  // Expose the embedded server's base URL so the renderer can reach the API
+  ipcMain.handle('server:url', () => {
+    if (embeddedServerPort) {
+      return `http://127.0.0.1:${embeddedServerPort}`;
+    }
+    return null;
+  });
 
   ipcMain.handle('build:start', async (event, config) => {
     // Build logic delegated to @hf-space/core

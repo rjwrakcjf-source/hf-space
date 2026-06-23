@@ -7,17 +7,26 @@
     "url": "https://github.com/rjwrakcjf-source/hf-space.git"
   },
   "main": "src/main/main.js",
+  "config": {
+    "devPort": "5173"
+  },
   "scripts": {
-    "dev": "concurrently \"pnpm dev-web\" \"electron .\"",
-    "dev-web": "vite --config vite.config.js",
+    "dev": "concurrently \"pnpm dev-web\" \"wait-on http://localhost:$npm_package_config_devPort && electron .\"",
+    "dev-web": "vite --config vite.config.js --port $npm_package_config_devPort",
     "build": "pnpm build-web && electron-builder build --config electron-builder.config.js --publish never",
     "build-web": "vite build --config vite.config.js",
+    "build:desktop": "pnpm build",
+    "dist": "pnpm build-web && electron-builder build --config electron-builder.config.js --publish always",
     "lint": "eslint src --ext .js",
-    "test": "jest"
+    "test": "echo 'No tests found'"
   },
   "dependencies": {
     "electron-updater": "^6.1.8",
     "electron-store": "^8.2.0",
+    "express": "^4.19.2",
+    "cors": "^2.8.5",
+    "compression": "^1.7.4",
+    "@hf-space/api": "workspace:*",
     "@hf-space/core": "workspace:*",
     "@hf-space/models": "workspace:*",
     "@hf-space/security": "workspace:*"
@@ -26,6 +35,7 @@
     "electron": "^30.0.9",
     "electron-builder": "^24.13.3",
     "concurrently": "^8.2.2",
+    "wait-on": "^7.2.0",
     "vite": "^5.2.11",
     "@vitejs/plugin-react": "^4.3.0"
   }

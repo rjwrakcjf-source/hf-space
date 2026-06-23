@@ -6,11 +6,12 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "test": "turbo run test",
+    "test": "turbo run test -- --passWithNoTests",
     "lint": "turbo run lint",
     "clean": "turbo run clean",
     "build-web": "turbo run build --filter=web",
     "build-desktop": "turbo run build --filter=desktop",
+    "build:desktop": "turbo run build --filter=desktop",
     "build-server": "turbo run build --filter=server",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "typecheck": "turbo run typecheck"

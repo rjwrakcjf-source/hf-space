@@ -1,6 +1,9 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electronAPI', {
+  // Server URL (embedded backend)
+  getServerUrl: () => ipcRenderer.invoke('server:url'),
+
   // Build operations
   buildApp: (config) => ipcRenderer.invoke('build:start', config),
   onBuildProgress: (callback) => ipcRenderer.on('build:progress', (_, data) => callback(data)),
