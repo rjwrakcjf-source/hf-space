@@ -1,0 +1,90 @@
+{
+  "version": "1.0.0",
+  "updated": "2024-01-01",
+  "models": [
+    {
+      "id": "gpt2",
+      "name": "GPT-2",
+      "type": "text-generation",
+      "description": "OpenAI GPT-2 language model",
+      "license": "MIT",
+      "size": 548000000,
+      "parameters": "117M",
+      "tags": ["text-generation", "english"],
+      "url": "https://huggingface.co/gpt2",
+      "capabilities": ["text-generation"],
+      "requirements": { "ram": "2GB", "gpu": false },
+      "category": "text-generation"
+    },
+    {
+      "id": "distilgpt2",
+      "name": "DistilGPT-2",
+      "type": "text-generation",
+      "description": "Distilled version of GPT-2",
+      "license": "Apache-2.0",
+      "size": 340000000,
+      "parameters": "82M",
+      "tags": ["text-generation", "distilled"],
+      "url": "https://huggingface.co/distilgpt2",
+      "capabilities": ["text-generation"],
+      "requirements": { "ram": "1GB", "gpu": false },
+      "category": "text-generation"
+    },
+    {
+      "id": "microsoft/DialoGPT-medium",
+      "name": "DialoGPT Medium",
+      "type": "text-generation",
+      "description": "Microsoft conversational model",
+      "license": "MIT",
+      "size": 1400000000,
+      "parameters": "345M",
+      "tags": ["conversational", "dialogue"],
+      "url": "https://huggingface.co/microsoft/DialoGPT-medium",
+      "capabilities": ["conversational"],
+      "requirements": { "ram": "2GB", "gpu": false },
+      "category": "text-generation"
+    },
+    {
+      "id": "sentence-transformers/all-MiniLM-L6-v2",
+      "name": "All MiniLM L6 v2",
+      "type": "embeddings",
+      "description": "Sentence embedding model",
+      "license": "Apache-2.0",
+      "size": 90000000,
+      "parameters": "22M",
+      "tags": ["embeddings", "sentence-transformers"],
+      "url": "https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2",
+      "capabilities": ["embeddings", "semantic-search"],
+      "requirements": { "ram": "512MB", "gpu": false },
+      "category": "embeddings"
+    },
+    {
+      "id": "openai/whisper-base",
+      "name": "Whisper Base",
+      "type": "speech-recognition",
+      "description": "OpenAI speech recognition",
+      "license": "MIT",
+      "size": 290000000,
+      "parameters": "74M",
+      "tags": ["speech", "asr", "multilingual"],
+      "url": "https://huggingface.co/openai/whisper-base",
+      "capabilities": ["speech-to-text"],
+      "requirements": { "ram": "1GB", "gpu": false },
+      "category": "speech"
+    },
+    {
+      "id": "Salesforce/codegen-350M-mono",
+      "name": "CodeGen 350M",
+      "type": "code-generation",
+      "description": "Code generation model",
+      "license": "BSD-3-Clause",
+      "size": 1400000000,
+      "parameters": "350M",
+      "tags": ["code", "python", "javascript"],
+      "url": "https://huggingface.co/Salesforce/codegen-350M-mono",
+      "capabilities": ["code-generation"],
+      "requirements": { "ram": "2GB", "gpu": false },
+      "category": "code-generation"
+    }
+  ]
+}

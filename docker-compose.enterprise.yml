@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    deploy:
+      replicas: 3
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+    environment:
+      - NODE_ENV=production
+      - ENABLE_CLUSTERING=true
+    ports:
+      - "3000:3000"
+
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - server
+
+  vault:
+    image: vault:1.15
+    cap_add:
+      - IPC_LOCK
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: ${VAULT_DEV_ROOT_TOKEN_ID:?Please set VAULT_DEV_ROOT_TOKEN_ID in .env}
+    ports:
+      - "8200:8200"
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3001:3000"
+    depends_on:
+      - prometheus

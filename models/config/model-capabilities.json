@@ -1,0 +1,9 @@
+{
+  "capabilities": {
+    "text-generation": ["complete", "chat", "summarize"],
+    "code-generation": ["complete", "explain", "fix"],
+    "embeddings": ["embed", "search", "cluster"],
+    "speech": ["transcribe", "translate"],
+    "vision": ["classify", "detect", "caption"]
+  }
+}

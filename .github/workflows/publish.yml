@@ -1,0 +1,76 @@
+name: Publish & Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  publish-npm:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Install pnpm
+        run: npm install -g pnpm@8.15.6
+      - name: Install dependencies
+        run: pnpm install
+      - name: Build packages
+        run: pnpm build
+      - name: Publish to npm
+        run: pnpm publish --recursive --filter='./libs/*'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  build-desktop:
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install pnpm
+        run: npm install -g pnpm@8.15.6
+      - name: Install dependencies
+        run: pnpm install
+      - name: Build web app
+        run: pnpm build --filter=web
+      - name: Build desktop app
+        run: pnpm build --filter=desktop
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-${{ matrix.os }}
+          path: apps/desktop/dist/
+
+  create-release:
+    needs: [build-desktop]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            desktop-ubuntu-latest/**
+            desktop-windows-latest/**
+            desktop-macos-latest/**
+          generate_release_notes: true

@@ -1,0 +1,10 @@
+FROM node:18-alpine
+RUN npm install -g pnpm@8.15.6
+WORKDIR /app
+COPY package.json pnpm-workspace.yaml ./
+COPY apps/web/package.json ./apps/web/
+RUN pnpm install
+COPY apps/web ./apps/web
+WORKDIR /app/apps/web
+EXPOSE 5173
+CMD ["pnpm", "dev", "--host"]

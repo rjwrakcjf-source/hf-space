@@ -1,0 +1,9 @@
+{
+  "name": "trusted",
+  "maxMemory": "1g",
+  "maxCpu": 1.0,
+  "networkAccess": true,
+  "fileSystemAccess": "read-only",
+  "allowedSyscalls": ["read", "write", "open", "close", "stat"],
+  "timeout": 120000
+}

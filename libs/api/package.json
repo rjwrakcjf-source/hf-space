@@ -1,0 +1,23 @@
+{
+  "name": "@hf-space/api",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "echo 'No build needed'",
+    "lint": "eslint src --ext .js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "express-validator": "^7.1.0",
+    "express-rate-limit": "^7.3.1",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "@hf-space/common": "workspace:*",
+    "@hf-space/security": "workspace:*"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  }
+}

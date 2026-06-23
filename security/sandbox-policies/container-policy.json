@@ -1,0 +1,9 @@
+{
+  "name": "container",
+  "maxMemory": "2g",
+  "maxCpu": 2.0,
+  "networkAccess": true,
+  "fileSystemAccess": "isolated",
+  "containerImage": "node:18-alpine",
+  "timeout": 300000
+}

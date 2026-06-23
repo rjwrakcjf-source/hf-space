@@ -1,0 +1,35 @@
+{
+  "name": "hf-space",
+  "version": "1.0.0",
+  "private": true,
+  "description": "HF Space - AI-powered desktop application and monorepo",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "clean": "turbo run clean",
+    "build-web": "turbo run build --filter=web",
+    "build-desktop": "turbo run build --filter=desktop",
+    "build-server": "turbo run build --filter=server",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "typecheck": "turbo run typecheck"
+  },
+  "workspaces": [
+    "apps/*",
+    "libs/*",
+    "packages/*",
+    "tools/*"
+  ],
+  "devDependencies": {
+    "turbo": "^1.13.3",
+    "prettier": "^3.2.5",
+    "eslint": "^8.57.0",
+    "@types/node": "^20.12.12"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@8.15.6"
+}

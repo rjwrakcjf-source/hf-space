@@ -1,0 +1,45 @@
+name: Security Scan
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '0 8 * * 1'
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  security-audit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install pnpm
+        run: npm install -g pnpm@8.15.6
+      - name: Install dependencies
+        run: pnpm install
+      - name: Run security audit
+        run: pnpm audit --audit-level moderate
+        continue-on-error: true
+
+  codeql:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3

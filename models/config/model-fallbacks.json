@@ -1,0 +1,6 @@
+{
+  "fallbacks": {
+    "gpt2": ["distilgpt2", "EleutherAI/gpt-neo-125M"],
+    "microsoft/DialoGPT-medium": ["microsoft/DialoGPT-small", "gpt2"]
+  }
+}
