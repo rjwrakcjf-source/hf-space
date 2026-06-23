@@ -7,7 +7,9 @@ module.exports = {
     buildResources: 'assets',
     output: 'dist',
   },
-  // Bundle main-process source and built renderer; node_modules handled by electron-builder
+  // Main-process source files and the pre-built renderer bundle.
+  // renderer source (src/renderer/ or apps/web/src/) is intentionally excluded
+  // because it is already compiled into dist/ by the Vite build step.
   files: [
     'src/main/**/*',
     'dist/**/*',

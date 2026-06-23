@@ -10,15 +10,22 @@ let serverPort = null;
 
 /**
  * Find a free TCP port starting from `start`.
+ * Tries up to `maxAttempts` consecutive ports before rejecting.
  * @param {number} start - Preferred starting port.
+ * @param {number} maxAttempts - Maximum number of ports to try.
  * @returns {Promise<number>}
  */
-function findFreePort(start = 3000) {
+function findFreePort(start = 3000, maxAttempts = 100) {
+  if (maxAttempts <= 0) {
+    return Promise.reject(
+      new Error(`Could not find a free port after trying ${100} ports starting from ${start - 100}`)
+    );
+  }
   return new Promise((resolve, reject) => {
     const srv = net.createServer();
     srv.unref();
     srv.on('error', () => {
-      findFreePort(start + 1).then(resolve, reject);
+      findFreePort(start + 1, maxAttempts - 1).then(resolve, reject);
     });
     srv.listen(start, '127.0.0.1', () => {
       const { port } = srv.address();
@@ -40,10 +47,26 @@ async function startEmbeddedServer() {
 
   const app = express();
 
-  // Allow requests from the Electron renderer (file:// origin or localhost dev server)
+  // Allow requests only from the Electron renderer process.
+  // In production the renderer origin is null (file://); in development it's
+  // http://localhost:<devPort>. The dev port defaults to 5173 (Vite default)
+  // and can be overridden via the npm_package_config_devPort env variable.
+  const devPort = process.env.npm_package_config_devPort || '5173';
+  const allowedOrigins = new Set([
+    null,                              // file:// renderer (origin header is absent / null)
+    `http://localhost:${devPort}`,     // Vite dev server
+    `http://127.0.0.1:${devPort}`,
+  ]);
   app.use(
     cors({
-      origin: (origin, cb) => cb(null, true),
+      origin: (origin, cb) => {
+        // origin is undefined when there is no Origin header (same-origin or Electron file://)
+        if (origin === undefined || allowedOrigins.has(origin)) {
+          cb(null, true);
+        } else {
+          cb(new Error(`CORS: origin '${origin}' is not allowed`));
+        }
+      },
       credentials: true,
     })
   );

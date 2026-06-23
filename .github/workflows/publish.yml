@@ -79,5 +79,4 @@ jobs:
             apps/desktop/dist/*.dmg
             apps/desktop/dist/*.AppImage
             apps/desktop/dist/*.deb
-            apps/desktop/dist/*.yml
           if-no-files-found: ignore

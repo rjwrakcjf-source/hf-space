@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 const { setupAutoUpdate } = require('./auto-update');
 const { registerIpcHandlers } = require('./ipc-handlers');
@@ -36,12 +36,23 @@ function createWindow() {
 }
 
 app.whenReady().then(async () => {
-  // Start embedded Express server before opening the window
+  // Start embedded Express server before opening the window.
+  // If it fails, show an error dialog and quit – the app cannot function
+  // without the backend.
   try {
     const { port } = await startEmbeddedServer();
     embeddedServerPort = port;
   } catch (err) {
     console.error('[main] Failed to start embedded server:', err);
+    await dialog.showMessageBox({
+      type: 'error',
+      title: 'Startup Error',
+      message: 'Failed to start the embedded backend server.',
+      detail: err.message,
+      buttons: ['Quit'],
+    });
+    app.quit();
+    return;
   }
 
   registerIpcHandlers(embeddedServerPort);

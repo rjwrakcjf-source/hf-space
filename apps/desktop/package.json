@@ -7,9 +7,12 @@
     "url": "https://github.com/rjwrakcjf-source/hf-space.git"
   },
   "main": "src/main/main.js",
+  "config": {
+    "devPort": "5173"
+  },
   "scripts": {
-    "dev": "concurrently \"pnpm dev-web\" \"wait-on http://localhost:5173 && electron .\"",
-    "dev-web": "vite --config vite.config.js",
+    "dev": "concurrently \"pnpm dev-web\" \"wait-on http://localhost:$npm_package_config_devPort && electron .\"",
+    "dev-web": "vite --config vite.config.js --port $npm_package_config_devPort",
     "build": "pnpm build-web && electron-builder build --config electron-builder.config.js --publish never",
     "build-web": "vite build --config vite.config.js",
     "build:desktop": "pnpm build",
